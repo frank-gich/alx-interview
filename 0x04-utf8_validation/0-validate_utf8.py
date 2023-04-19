@@ -1,35 +1,28 @@
 #!/usr/bin/python3
-""" utf-8 validation
+"""
+UTF-8 Validation
 """
 
-def validUTF8(data):
-    """ 
-    used to determine the validity of data using utf-8
+
+def validUTF8(data) -> bool:
     """
-    
-    number_bytes = 0
-    
-    """ mask_1 = 1 << 7
-    mask_2 = 1 << 6
-      """
-    for i in data:
-        
-        mask_1 = 1 << 7
-        
-        if not number_bytes:
-        
-            while mask_1 & i:
-                number_bytes += 1
-                mask_1 >> 1
-                
-        if not number_bytes:
-            continue
-        
-        if number_bytes == 1 or number_bytes > 4:
+    Returns True if data is a valid UTF-8 encoding, else return False
+    :param data:
+    :return:
+    """
+    num_bytes = 0
+    for byte in data:
+        mask = 1 << 7
+        if not num_bytes:
+            while byte & mask:
+                num_bytes += 1
+                mask >>= 1
+            if not num_bytes:
+                continue
+            if num_bytes == 1 or num_bytes > 4:
                 return False
-    else:
-        if i >> 6 != 0b10:
-            return False
-        
-    number_bytes -= 1
-    return number_bytes == 0
+        else:
+            if byte >> 6 != 0b10:
+                return False
+        num_bytes -= 1
+    return num_bytes == 0

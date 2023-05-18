@@ -4,7 +4,7 @@ def makeChange(coins, total):
     """
     return: the fewest number of coins needed to meet total
         coins (type): _value of the coins in your posession_
-        total (_type_): _the volume or the detemining factor_
+        total (_type_): _the volume or the detemining factor
     """
     if not coins or coins is None:
         return-1
@@ -17,4 +17,5 @@ def makeChange(coins, total):
             total -= 1
         if (total == 0):
             return change
+        
     return -1

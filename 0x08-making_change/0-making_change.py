@@ -10,14 +10,15 @@ def makeChange(coins, total):
         total the volume or the detemining factor
     """
     if not coins or coins is None:
-        return-1
+        return -1
     if total <= 0:
         return 0
     change = 0
-    coins =sorted(coins)[::-1]
+    coins = sorted(coins)[::-1]
     for coin in coins:
         while coin <= total:
-            total -= 1
+             total -= coin
+             change += 1
         if (total == 0):
             return change     
     return -1

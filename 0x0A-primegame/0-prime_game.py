@@ -38,5 +38,5 @@ def rm_multiples(ls, x):
     for i in range(2, len(ls)):
         try:
             ls[i * x] = 0
-        except (valueError, IndexError):
+        except (ValueError, IndexError):
             break

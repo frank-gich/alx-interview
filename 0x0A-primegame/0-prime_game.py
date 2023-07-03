@@ -2,41 +2,65 @@
 
 
 
-def isWinner(x, num):
-    """
-        x - rounds
-        num - numbers list
-    """
-    if x <= 0 or num is None:
+def isWinner(x, nums):
+    '''finds the winner'''
+    winnerCounter = {'Maria': 0, 'Ben': 0}
+
+    for i in range(x):
+        roundWinner = isRoundWinner(nums[i], x)
+        if roundWinner is not None:
+            winnerCounter[roundWinner] += 1
+
+    if winnerCounter['Maria'] > winnerCounter['Ben']:
+        return 'Maria'
+    elif winnerCounter['Ben'] > winnerCounter['Maria']:
+        return 'Ben'
+    else:
         return None
-    if x != len (num):
-        return None
-    
-    ben = 0
-    maria = 0
-    
-    a = [1 for x in range(sorted(num)[-1]+1)]
-    a[0], a[1] = 0, 0
-    for i in range(2, len(a)):
-        rm_multiples(a, i)
-        
-    for i in num:
-        if sum(a[0:i +1]) % 2 == 0:
-            ben += 1
+
+
+def isRoundWinner(n, x):
+    '''find round winner'''
+    list = [i for i in range(1, n + 1)]
+    players = ['Maria', 'Ben']
+
+    for i in range(n):
+        # get current player
+        currentPlayer = players[i % 2]
+        selectedIdxs = []
+        prime = -1
+        for idx, num in enumerate(list):
+            # if already picked prime num then
+            # find if num is multipl of the prime num
+            if prime != -1:
+                if num % prime == 0:
+                    selectedIdxs.append(idx)
+            # else check is num is prime then pick it
+            else:
+                if isPrime(num):
+                    selectedIdxs.append(idx)
+                    prime = num
+        # if failed to pick then current player lost
+        if prime == -1:
+            if currentPlayer == players[0]:
+                return players[1]
+            else:
+                return players[0]
         else:
-            maria += 1
-    if ben > maria:
-        return "Ben"
-    if maria > ben:
-        return "Maria"
+            for idx, val in enumerate(selectedIdxs):
+                del list[val - idx]
     return None
 
-def rm_multiples(ls, x):
-    """ removing 
-    
-    """
-    for i in range(2, len(ls)):
-        try:
-            ls[i * x] = 0
-        except (ValueError, IndexError):
-            break
+
+def isPrime(n):
+    # 0, 1, even numbers greater than 2 are NOT PRIME
+    if n == 1 or n == 0 or (n % 2 == 0 and n > 2):
+        return False
+    else:
+        # Not prime if divisable by another number less
+        # or equal to the square root of itself.
+        # n**(1/2) returns square root of n
+        for i in range(3, int(n**(1/2))+1, 2):
+            if n % i == 0:
+                return "Not prime"
+        return True

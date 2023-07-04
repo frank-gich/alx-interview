@@ -4,16 +4,16 @@
 
 def isWinner(x, nums):
     '''finds the winner'''
-    winnerCounter = {'Maria': 0, 'Ben': 0}
+    count = {'Maria': 0, 'Ben': 0}
 
     for i in range(x):
         roundWinner = isRoundWinner(nums[i], x)
         if roundWinner is not None:
-            winnerCounter[roundWinner] += 1
+            count[roundWinner] += 1
 
-    if winnerCounter['Maria'] > winnerCounter['Ben']:
+    if count['Maria'] > count['Ben']:
         return 'Maria'
-    elif winnerCounter['Ben'] > winnerCounter['Maria']:
+    elif count['Ben'] > count['Maria']:
         return 'Ben'
     else:
         return None

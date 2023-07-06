@@ -1,7 +1,5 @@
 #!/usr/bin/python3
 
-
-
 def isWinner(x, nums):
     '''finds the winner'''
     count = {'Maria': 0, 'Ben': 0}

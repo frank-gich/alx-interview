@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-'''PrimeGame'''
+'''Prime Game'''
 
 
 def isWinner(x, nums):
@@ -17,6 +17,7 @@ def isWinner(x, nums):
         return 'Ben'
     else:
         return None
+
 
 def isRoundWinner(n, x):
     '''find round winner'''
@@ -49,6 +50,7 @@ def isRoundWinner(n, x):
             for idx, val in enumerate(selectedIdxs):
                 del list[val - idx]
     return None
+
 
 def isPrime(n):
     # 0, 1, even numbers greater than 2 are NOT PRIME
